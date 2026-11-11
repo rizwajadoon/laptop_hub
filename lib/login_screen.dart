@@ -199,163 +199,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 20),
                           // Full Name: Sign Up Only
                           if (!isLogin) ...[
-                            const Text(
-                              'Full Name',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: navy,
-                              ),
+                            _buildLoginTextField(
+                              label: 'Full Name',
+                              hint: 'Enter your full name',
+                              icon: Icons.person_outline_rounded,
                             ),
-                            const SizedBox(height: 6),
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Enter your full name',
-                                prefixIcon: const Icon(
-                                  Icons.person_outline_rounded,
-                                  color: navy,
-                                ),
-                                filled: true,
-                                fillColor: const Color(0xFFF8FAFC),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 12,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xFFE2E8F0),
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: navy,
-                                    width: 1.5,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 14),
                           ],
-                          const Text(
-                            'Email Address',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: navy,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          TextField(
+                          _buildLoginTextField(
+                            label: 'Email Address',
+                            hint: 'Enter your email',
+                            icon: Icons.email_outlined,
                             keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: 'Enter your email',
-                              prefixIcon: const Icon(
-                                Icons.email_outlined,
-                                color: navy,
-                              ),
-                              filled: true,
-                              fillColor: const Color(0xFFF8FAFC),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 12,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Color(0xFFE2E8F0),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: navy,
-                                  width: 1.5,
-                                ),
-                              ),
-                            ),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 14),
 
-                          const Text(
-                            'Password',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: navy,
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          TextField(
+                          _buildLoginTextField(
+                            label: 'Password',
+                            hint: 'Enter your password',
+                            icon: Icons.lock_outline_rounded,
                             obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: 'Enter your password',
-                              prefixIcon: const Icon(
-                                Icons.lock_outline_rounded,
-                                color: navy,
-                              ),
-                              filled: true,
-                              fillColor: const Color(0xFFF8FAFC),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 14,
-                                vertical: 12,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: Color(0xFFE2E8F0),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: const BorderSide(
-                                  color: navy,
-                                  width: 1.5,
-                                ),
-                              ),
-                            ),
                           ),
                           // Confirm Password: Sign Up Only
                           if (!isLogin) ...[
-                            const SizedBox(height: 16),
-                            const Text(
-                              'Confirm Password',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: navy,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            TextField(
+                            const SizedBox(height: 14),
+                            _buildLoginTextField(
+                              label: 'Confirm Password',
+                              hint: 'Confirm your password',
+                              icon: Icons.lock_outline_rounded,
                               obscureText: true,
-                              decoration: InputDecoration(
-                                hintText: 'Confirm your password',
-                                prefixIcon: const Icon(
-                                  Icons.lock_outline_rounded,
-                                  color: navy,
-                                ),
-                                filled: true,
-                                fillColor: const Color(0xFFF8FAFC),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 12,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xFFE2E8F0),
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                  borderSide: const BorderSide(
-                                    color: navy,
-                                    width: 1.5,
-                                  ),
-                                ),
-                              ),
                             ),
                           ],
                           // Forgot Password: Login Only
@@ -446,6 +318,95 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLoginTextField({
+    required String label,
+    required String hint,
+    required IconData icon,
+    bool obscureText = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 5,
+              height: 14,
+              decoration: BoxDecoration(
+                color: navy,
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: navy,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x0A173B63),
+                blurRadius: 10,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: TextField(
+            obscureText: obscureText,
+            keyboardType: keyboardType,
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: const TextStyle(
+                color: Color(0xFF94A3B8),
+                fontSize: 13,
+              ),
+              prefixIcon: Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEBF3FA),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  icon,
+                  color: navy,
+                  size: 20,
+                ),
+              ),
+              filled: true,
+              fillColor: const Color(0xFFF8FAFC),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: const BorderSide(
+                  color: navy,
+                  width: 1.5,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -238,28 +238,64 @@ class HomeScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(16),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x0D000000),
-                  blurRadius: 10,
-                  offset: Offset(0, 3),
+                  color: Color(0x12173B63),
+                  blurRadius: 14,
+                  offset: Offset(0, 4),
                 ),
               ],
+              border: Border.all(
+                color: const Color(0xFFCBD5E1),
+                width: 1,
+              ),
             ),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search laptops, brands, specs...',
-                prefixIcon: const Icon(Icons.search_rounded, color: navy),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.tune_rounded, color: navy, size: 20),
-                  onPressed: () {},
+                hintStyle: const TextStyle(
+                  color: Color(0xFF94A3B8),
+                  fontSize: 13,
+                ),
+                prefixIcon: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEBF3FA),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.search_rounded,
+                    color: navy,
+                    size: 20,
+                  ),
+                ),
+                suffixIcon: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEBF3FA),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.tune_rounded,
+                      color: navy,
+                      size: 18,
+                    ),
+                    onPressed: () {},
+                    constraints:
+                        const BoxConstraints(minWidth: 32, minHeight: 32),
+                    padding: EdgeInsets.zero,
+                  ),
                 ),
                 filled: true,
                 fillColor: Colors.white,
-                contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 14,
+                  horizontal: 16,
+                ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(16),
                   borderSide: BorderSide.none,
                 ),
               ),
