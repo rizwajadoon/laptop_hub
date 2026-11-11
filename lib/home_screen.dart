@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'laptop_detail_screen.dart';
 import 'add_product_screen.dart';
 import 'profile_screen.dart';
+import 'category_laptops_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -323,12 +324,12 @@ class HomeScreen extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                _buildCategoryPill('🔥 Flash Sale', true),
-                _buildCategoryPill('💻 Gaming Laptops', false),
-                _buildCategoryPill('🍎 MacBooks', false),
-                _buildCategoryPill('💼 Business', false),
-                _buildCategoryPill('⚡ Refurbished', false),
-                _buildCategoryPill('🎓 Student Deals', false),
+                _buildCategoryPill(context, '🔥', 'Flash Sale', true),
+                _buildCategoryPill(context, '💻', 'Gaming Laptops', false),
+                _buildCategoryPill(context, '🍎', 'MacBooks', false),
+                _buildCategoryPill(context, '💼', 'Business', false),
+                _buildCategoryPill(context, '⚡', 'Refurbished', false),
+                _buildCategoryPill(context, '🎓', 'Student Deals', false),
               ],
             ),
           ),
@@ -635,35 +636,53 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  static Widget _buildCategoryPill(String label, bool isSelected) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFFF6B00) : Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: isSelected
-              ? const Color(0xFFFF6B00)
-              : const Color(0xFFE2E8F0),
+  static Widget _buildCategoryPill(
+    BuildContext context,
+    String iconStr,
+    String title,
+    bool isSelected,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategoryLaptopsScreen(
+              categoryTitle: title,
+              categoryIcon: iconStr,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFFF6B00) : Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected
+                ? const Color(0xFFFF6B00)
+                : const Color(0xFFE2E8F0),
+          ),
+          boxShadow: isSelected
+              ? const [
+                  BoxShadow(
+                    color: Color(0x33FF6B00),
+                    blurRadius: 8,
+                    offset: Offset(0, 3),
+                  )
+                ]
+              : null,
         ),
-        boxShadow: isSelected
-            ? const [
-                BoxShadow(
-                  color: Color(0x33FF6B00),
-                  blurRadius: 8,
-                  offset: Offset(0, 3),
-                )
-              ]
-            : null,
-      ),
-      child: Center(
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.white : const Color(0xFF173B63),
+        child: Center(
+          child: Text(
+            '$iconStr $title',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: isSelected ? Colors.white : const Color(0xFF173B63),
+            ),
           ),
         ),
       ),
