@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -11,141 +13,175 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6F8),
 
-      appBar: AppBar(
-        title: const Text(
-          'My Profile',
-          style: TextStyle(fontWeight: FontWeight.bold),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          centerTitle: true,
+          elevation: 6,
+          shadowColor: const Color(0x40000000),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF0D1B2A), Color(0xFF173B63), Color(0xFF1B263B)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+            ),
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+          ),
+          title: const Text(
+            'My Profile',
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: 0.5,
+            ),
+          ),
         ),
-        centerTitle: true,
-        backgroundColor: navy,
-        foregroundColor: Colors.white,
       ),
 
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           children: [
             const SizedBox(height: 10),
 
-            // Profile Icon
-            const CircleAvatar(
-              radius: 48,
-              backgroundColor: Color(0xFFDCE6F1),
-              child: Icon(
-                Icons.person,
-                size: 55,
-                color: navy,
-              ),
-            ),
-
-            const SizedBox(height: 12),
-
-            const Text(
-              'Create Your Profile',
-              style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
-                color: navy,
-              ),
-            ),
-
-            const SizedBox(height: 6),
-
-            const Text(
-              'Enter your personal information',
-              style: TextStyle(color: Colors.grey),
-            ),
-
-            const SizedBox(height: 25),
-
-            // Personal Information
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Personal Information',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            // Profile Avatar Header
+            Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: navy,
+                      width: 2,
+                    ),
+                  ),
+                  child: const CircleAvatar(
+                    radius: 46,
+                    backgroundColor: Color(0xFFDCE6F1),
+                    child: Icon(
+                      Icons.person_rounded,
+                      size: 55,
+                      color: navy,
+                    ),
+                  ),
                 ),
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF10B981),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.check_rounded,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 14),
+
+            const Text(
+              'Your Profile Details',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+                color: navy,
               ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 4),
 
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Full Name',
-                hintText: 'Enter your name',
-                prefixIcon: Icon(Icons.person_outline),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(),
-              ),
+            const Text(
+              'Manage and update your personal information',
+              style: TextStyle(color: Colors.black54, fontSize: 13),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 24),
 
-            const TextField(
+            _buildProfileTextField(
+              label: 'Full Name',
+              hint: 'Enter your name',
+              icon: Icons.person_outline_rounded,
+            ),
+
+            const SizedBox(height: 14),
+
+            _buildProfileTextField(
+              label: 'Email Address',
+              hint: 'Enter your email',
+              icon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: 'Email Address',
-                hintText: 'Enter your email',
-                prefixIcon: Icon(Icons.email_outlined),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(),
-              ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 14),
 
-            const TextField(
+            _buildProfileTextField(
+              label: 'Phone Number',
+              hint: 'Enter your phone number',
+              icon: Icons.phone_outlined,
               keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
-                hintText: 'Enter your phone number',
-                prefixIcon: Icon(Icons.phone_outlined),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(),
-              ),
             ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 14),
 
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Location',
-                hintText: 'Enter your city',
-                prefixIcon: Icon(Icons.location_on_outlined),
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(),
-              ),
+            _buildProfileTextField(
+              label: 'Location',
+              hint: 'Enter your city',
+              icon: Icons.location_on_outlined,
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 22),
 
             // Save Button
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Profile UI Demo'),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF173B63), Color(0xFF24476A)],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x29173B63),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: navy,
-                  foregroundColor: Colors.white,
+                  ],
                 ),
-                child: const Text(
-                  'Save Profile',
-                  style: TextStyle(fontSize: 16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Profile saved successfully!'),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'Save Profile Details',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -158,72 +194,153 @@ class ProfileScreen extends StatelessWidget {
                 'Account Options',
                 style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // My Listings
-            Card(
-              child: ListTile(
-                leading: const Icon(
-                  Icons.laptop,
+                  fontWeight: FontWeight.w900,
                   color: navy,
                 ),
-                title: const Text('My Listings'),
-                subtitle: const Text('Manage your laptops'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {},
               ),
             ),
 
-            // Notifications
-            Card(
-              child: ListTile(
-                leading: const Icon(
-                  Icons.notifications_outlined,
-                  color: navy,
-                ),
-                title: const Text('Notifications'),
-                subtitle: const Text('View latest updates'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {},
-              ),
+            const SizedBox(height: 12),
+
+            _buildOptionCard(
+              icon: Icons.laptop_rounded,
+              title: 'My Listings',
+              subtitle: 'Manage your active laptops',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
+              },
             ),
 
-            // Edit Profile
-            Card(
-              child: ListTile(
-                leading: const Icon(
-                  Icons.edit_outlined,
-                  color: navy,
-                ),
-                title: const Text('Edit Profile'),
-                subtitle: const Text('Update your information'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {},
-              ),
+            _buildOptionCard(
+              icon: Icons.notifications_none_rounded,
+              title: 'Notifications',
+              subtitle: 'View latest updates and alerts',
+              onTap: () {},
             ),
 
-            // Logout
-            Card(
-              child: ListTile(
-                leading: const Icon(
-                  Icons.logout,
-                  color: Colors.red,
-                ),
-                title: const Text('Logout'),
-                subtitle: const Text('Sign out of your account'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                onTap: () {},
-              ),
+            _buildOptionCard(
+              icon: Icons.edit_note_rounded,
+              title: 'Edit Profile',
+              subtitle: 'Update your personal info',
+              onTap: () {},
             ),
 
-            const SizedBox(height: 15),
+            _buildOptionCard(
+              icon: Icons.logout_rounded,
+              title: 'Logout',
+              subtitle: 'Sign out of your account',
+              iconColor: Colors.red,
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                  (route) => false,
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
           ],
         ),
+      ),
+    );
+  }
+
+  static Widget _buildProfileTextField({
+    required String label,
+    required String hint,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+            color: Color(0xFF173B63),
+          ),
+        ),
+        const SizedBox(height: 6),
+        TextField(
+          keyboardType: keyboardType,
+          decoration: InputDecoration(
+            hintText: hint,
+            prefixIcon: Icon(icon, color: const Color(0xFF173B63)),
+            filled: true,
+            fillColor: Colors.white,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 12,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(
+                color: Color(0xFF173B63),
+                width: 1.5,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  static Widget _buildOptionCard({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    Color iconColor = const Color(0xFF173B63),
+  }) {
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: ListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+        ),
+        leading: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: iconColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon, color: iconColor, size: 22),
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: iconColor == Colors.red ? Colors.red : const Color(0xFF173B63),
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(fontSize: 12, color: Colors.black54),
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 14,
+          color: Colors.grey,
+        ),
+        onTap: onTap,
       ),
     );
   }
