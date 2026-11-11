@@ -234,71 +234,183 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 14),
 
-          // Search Bar
+          // Daraz Style Search Bar
           Container(
+            height: 52,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(26),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x12173B63),
-                  blurRadius: 14,
-                  offset: Offset(0, 4),
+                  color: Color(0x1A173B63),
+                  blurRadius: 16,
+                  offset: Offset(0, 5),
                 ),
               ],
               border: Border.all(
-                color: const Color(0xFFCBD5E1),
-                width: 1,
+                color: const Color(0xFFFF6B00).withValues(alpha: 0.5),
+                width: 1.5,
               ),
             ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search laptops, brands, specs...',
-                hintStyle: const TextStyle(
-                  color: Color(0xFF94A3B8),
-                  fontSize: 13,
+            child: Row(
+              children: [
+                const SizedBox(width: 14),
+                const Icon(
+                  Icons.search_rounded,
+                  color: Color(0xFFFF6B00),
+                  size: 22,
                 ),
-                prefixIcon: Container(
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFEBF3FA),
-                    borderRadius: BorderRadius.circular(10),
+                const SizedBox(width: 10),
+                const Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search in Laptop Hub (e.g. MacBook, i7)...',
+                      hintStyle: TextStyle(
+                        color: Color(0xFF94A3B8),
+                        fontSize: 12.5,
+                      ),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.zero,
+                      isDense: true,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.search_rounded,
-                    color: navy,
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.qr_code_scanner_rounded,
+                    color: Color(0xFF173B63),
                     size: 20,
                   ),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Image / QR Scanner opened'),
+                      ),
+                    );
+                  },
                 ),
-                suffixIcon: Container(
-                  margin: const EdgeInsets.all(8),
+                Container(
+                  margin: const EdgeInsets.all(4),
+                  height: 44,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFEBF3FA),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.tune_rounded,
-                      color: navy,
-                      size: 18,
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFFF6B00), Color(0xFFFF8800)],
                     ),
-                    onPressed: () {},
-                    constraints:
-                        const BoxConstraints(minWidth: 32, minHeight: 32),
-                    padding: EdgeInsets.zero,
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      'SEARCH',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
                   ),
                 ),
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 14,
-                  horizontal: 16,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide.none,
-                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 14),
+
+          // Daraz Style Category Quick Bar
+          SizedBox(
+            height: 38,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                _buildCategoryPill('🔥 Flash Sale', true),
+                _buildCategoryPill('💻 Gaming Laptops', false),
+                _buildCategoryPill('🍎 MacBooks', false),
+                _buildCategoryPill('💼 Business', false),
+                _buildCategoryPill('⚡ Refurbished', false),
+                _buildCategoryPill('🎓 Student Deals', false),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 14),
+
+          // Daraz Style Promo Banner Card
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF173B63), Color(0xFF0F2027)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x33173B63),
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFF6B00),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Text(
+                          'DARAZ STYLE SALE',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        'Up to 30% OFF on Top Brands!',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        'Verified used & new laptops with warranty',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.15),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.laptop_mac_rounded,
+                    color: Colors.cyanAccent,
+                    size: 38,
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -519,6 +631,41 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  static Widget _buildCategoryPill(String label, bool isSelected) {
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: isSelected ? const Color(0xFFFF6B00) : Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isSelected
+              ? const Color(0xFFFF6B00)
+              : const Color(0xFFE2E8F0),
+        ),
+        boxShadow: isSelected
+            ? const [
+                BoxShadow(
+                  color: Color(0x33FF6B00),
+                  blurRadius: 8,
+                  offset: Offset(0, 3),
+                )
+              ]
+            : null,
+      ),
+      child: Center(
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: isSelected ? Colors.white : const Color(0xFF173B63),
+          ),
+        ),
       ),
     );
   }
